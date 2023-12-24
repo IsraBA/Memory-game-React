@@ -1,0 +1,102 @@
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.card10 {
+    margin: 5px;
+    position: relative;
+    width: 22%;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 270px;
+    max-height: 270px;
+    aspect-ratio: 1/1;
+}
+
+.card20 {
+    margin: 5px;
+    position: relative;
+    width: 22%;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 180px;
+    max-height: 180px;
+    aspect-ratio: 1/1;
+}
+
+.card30 {
+    margin: 5px;
+    position: relative;
+    width: 22%;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 150px;
+    max-height: 150px;
+    aspect-ratio: 1/1;
+}
+
+.front {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 3px solid #ff9900;
+    border-radius: 10px;
+    position: absolute;
+    transform: rotateY(90deg);
+    transition: all ease-in 0.2s;
+    box-shadow: 6px 7px 17px -1px rgba(0, 0, 0, 0.42);
+    -webkit-box-shadow: 6px 7px 17px -1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 6px 7px 17px -1px rgba(0, 0, 0, 0.42);
+}
+
+.flipped .front {
+    transform: rotateY(0deg);
+    transition-delay: 0.2s;
+}
+
+.back {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+    display: block;
+    border: 3px solid #ff9900;
+    border-radius: 10px;
+    background-color: #e5e5f7;
+    opacity: 1;
+    background-image: linear-gradient(30deg, #ffa92b 12%, transparent 12.5%, transparent 87%, #ffa92b 87.5%, #ffa92b), linear-gradient(150deg, #ffa92b 12%, transparent 12.5%, transparent 87%, #ffa92b 87.5%, #ffa92b), linear-gradient(30deg, #ffa92b 12%, transparent 12.5%, transparent 87%, #ffa92b 87.5%, #ffa92b), linear-gradient(150deg, #ffa92b 12%, transparent 12.5%, transparent 87%, #ffa92b 87.5%, #ffa92b), linear-gradient(60deg, #ffa92b77 25%, transparent 25.5%, transparent 75%, #ffa92b77 75%, #ffa92b77), linear-gradient(60deg, #ffa92b77 25%, transparent 25.5%, transparent 75%, #ffa92b77 75%, #ffa92b77);
+    background-size: 20px 35px;
+    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+    transition: all ease-in 0.2s;
+    transition-delay: 0.2s;
+    box-shadow: 6px 7px 17px -1px rgba(0, 0, 0, 0.42);
+    -webkit-box-shadow: 6px 7px 17px -1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 6px 7px 17px -1px rgba(0, 0, 0, 0.42);
+}
+
+.flipped .back {
+    transform: rotateY(90deg);
+    transition-delay: 0s;
+}
+
+#matched {
+    border: 3px solid #249913;
+}
+
+@media (width < 760px) {
+    .card10 {
+        /* width: 22%; */
+        min-width: 120px;
+        min-height: 120px;
+    }
+    .card20 {
+        /* width: 22%; */
+        min-width: 83px;
+        min-height: 83px;
+    }
+    .card30 {
+        width: 10%;
+        min-width: 70px;
+        min-height: 70px;
+    }
+}

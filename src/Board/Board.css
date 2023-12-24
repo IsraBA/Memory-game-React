@@ -1,0 +1,37 @@
+.board{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100vw;
+    font-size: 30px;
+    font-weight: 700;
+    /* padding: 20px 20px 0 20px ; */
+}
+
+.boardAndTurns{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.turns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.divider{
+    width: 3px;
+    height: 40px;
+    background-color: var(--praimery-color);
+}
+
+@media (width < 760px) {
+    .boardAndTurns{
+    gap: 20px;
+    }
+}
