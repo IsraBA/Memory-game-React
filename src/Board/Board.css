@@ -1,20 +1,51 @@
-.board{
+.innerBoard{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    width: 100vw;
+    align-items: center;
+    width: 100%;
+    /* height: 100%; */
     font-size: 30px;
     font-weight: 700;
-    /* padding: 20px 20px 0 20px ; */
+    /* overflow: hidden; */
+    /* border: 2px solid #bf2525; */
+
 }
 
-.boardAndTurns{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    padding: 20px 0;
+.singleCard30 {
+    width: 10.4%;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 154px;
+    max-height: 154px;
+    aspect-ratio: 1/1;
+    margin: 5px;
+    position: relative;
+    transition: all ease-in-out 0.3s;
+    
+}
+.singleCard20 {
+    width: 13%;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 180px;
+    max-height: 180px;
+    aspect-ratio: 1/1;
+    margin: 5px;
+    position: relative;
+    transition: all ease-in-out 0.3s;
+}
+.singleCard10 {
+    width: 19%;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 270px;
+    max-height: 270px;
+    aspect-ratio: 1/1;
+    margin: 5px;
+    position: relative;
+    transition: all ease-in-out 0.3s;
 }
 
 .turns {
@@ -22,6 +53,8 @@
     flex-direction: row;
     align-items: center;
     gap: 20px;
+    font-size: 37px;
+    font-weight: 700;
 }
 
 .divider{

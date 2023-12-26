@@ -1,22 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
 
 :root {
-    --bg-color: #323232;
+    --bg-color: #282828;
     --praimery-color: #ff9900;
     --color: rgb(255, 255, 255);
 }
 
 .memoryGame {
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
+    /* min-height: 100vh; */
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-color);
     color: var(--color);
     font-family: 'Noto Sans Hebrew', sans-serif;
     gap: 20px;
     direction: rtl;
     position: relative;
+    background-color: var(--bg-color);
+    opacity: 1;
+    background-image: radial-gradient(#ff990029 1.05px, var(--bg-color) 1.05px);
+    background-size: 21px 21px;
 }
 
 .menu {
@@ -24,27 +27,56 @@
     height: 100px;
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(255, 157, 0, 0.591));
     display: flex;
-    /* justify-content: flex-end; */
-    /* align-items: center; */
+    background-color: #28282894; 
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .board {
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 100px);
     margin: auto;
-    padding: 0px 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* border: 2px solid #fff; */
+}
+
+.allCards {
+    width: calc(100% - 300px);
+    height: 100%;
+    overflow: hidden;
+    transition: all ease-in-out 0.3s;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* overflow: hidden; */
+    gap: 15px;
+    padding: 20px 30px;
+    /* border: 2px solid #fff; */
+}
+
+.allCardsFull {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: all ease-in-out 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 20px 30px;
+    /* border: 2px solid #fff; */
 }
 
 .victory {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.614);
+    background-color: rgba(0, 0, 0, 0.72);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,7 +97,7 @@
 
 .victory .newGameEnd {
     position: absolute;
-    top: 57.3%;
+    top: 59%;
 }
 
 .newGameEnd {
@@ -76,6 +108,7 @@
     border: 2px solid var(--praimery-color);
     color: var(--color);
 }
+
 .newGameEnd2 {
     padding: 8px 16px;
     font-size: 36px;
@@ -91,11 +124,101 @@
     cursor: pointer;
 }
 
+.twoPlayersMode {
+    width: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 0 10px 10px 10px;
+    border-right: 4px solid var(--praimery-color);
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.player {
+    padding: 5px 12px;
+    margin: 0 3px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 19px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: center;
+    gap: 12px;
+}
+
+.playerName {
+    width: 100%;
+    padding: 3px;
+    border-top: 3px solid var(--praimery-color);
+    border-bottom: 3px solid var(--praimery-color);
+    border-radius: 9px;
+}
+
+#turn .playerName{
+    border-top: 3px solid rgb(0, 167, 0);
+    border-bottom: 3px solid rgb(0, 167, 0);
+    transition: 1.5s;
+
+}
+.TPModeLine {
+    width: 1px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.644);
+}
+
+.scoreHolder {
+    width: 70%;
+    padding: 0 0 10px 0;
+    border-bottom: 2px solid var(--praimery-color);
+    /* border-top: 2px solid white; */
+    border-radius: 15px;
+    text-align: center;
+}
+
+.score {
+    font-size: 80px;
+    font-weight: 800;
+    margin: -19px;
+}
+
+.scoreHolder span {
+    font-size: 10px;
+    /* color: var(--praimery-color); */
+}
+
+.foundCards {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: baseline;
+    gap: 10px;
+    padding-top: 13px;
+}
+
+.foundCard{
+    width: 44px;
+    height: 44px;
+    border: 2px solid #249913;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
 @media (width < 760px) {
 
     .menu {
         height: 150px;
     }
+
     .victory {
         position: absolute;
         width: 100%;
@@ -109,9 +232,11 @@
         font-weight: 700;
         /* border: 5px solid var(--praimery-color); */
     }
+
     .victory span {
         background: radial-gradient(ellipse farthest-side at center center, var(--praimery-color) 0%, rgba(0, 255, 0, 0) 55%);
     }
+
     .victory .newGameEnd {
         position: absolute;
         top: 56%;

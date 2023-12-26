@@ -37,6 +37,22 @@ export default function Board(props) {
         props.setCards(ending);
         resetChoices();
 
+        // הענקת נקודה לשחקן שצדק במצב שני שחקנים + הוספת הקלפים שצדק למערך שלו
+        if (props.twoPlayersMode) {
+          if (props.player1Turn) {
+            props.setTotalP1(props.totalP1 + 1);
+            let newCardsP1 = [...props.cardsP1]; 
+            newCardsP1.push(props.firstChoice, props.secondChoice);
+            props.setcardsP1(newCardsP1);
+          }
+          else {
+            props.setTotalP2(props.totalP2 + 1);
+            let newCardsP2 = [...props.cardsP2]; 
+            newCardsP2.push(props.firstChoice, props.secondChoice);
+            props.setcardsP2(newCardsP2);
+          }
+        }
+        
         // סיום המשחק במידה וכל הקלפים תואמים
         if (ending.every(card => card.matched)) {
           props.setGameOver(true);
@@ -44,10 +60,21 @@ export default function Board(props) {
       }
       else {
         setTimeout(() => resetChoices(), 1500);
+        
+        // מעבר תור לשחקן האחר במידה ולא נמצא זוג קלפים
+        if (props.twoPlayersMode) {
+          if (props.player1Turn) {
+            props.setPlayer1Turn(false);
+          }
+          else {
+            props.setPlayer1Turn(true);
+          }
+        }
       }
     }
   }, [props.firstChoice, props.secondChoice])
 
+  // איפוס בחירות והוספת תור
   const resetChoices = () => {
     props.setFirstChoice(null)
     props.setSecondChoice(null)
@@ -70,20 +97,26 @@ export default function Board(props) {
   }, [props.running])
 
   return (
-    <div className='boardAndTurns'>
-      <div className='board'>
+    <>
+      <div className='innerBoard'>
         {props.cards.map(card => {
-          return <SingleCard
-            card={card}
-            key={card.id}
-            handleChoice={handleChoice}
-            flipped={card === props.firstChoice || card === props.secondChoice || card.matched}
-            disabled={disabled}
-            matched={card.matched}
-            cardsAmount={cardsAmount}
-            setRunning={props.setRunning}
-            gameOver={props.gameOver}
-          />
+          return <div
+            // id={props.twoPlayersMode ? "twoPlayersModeON" : ""}
+            className={cardsAmount === 10 ? "singleCard10" : cardsAmount === 20 ? "singleCard20" : cardsAmount === 30 ? "singleCard30" : "singleCard"}>
+            <SingleCard
+              card={card}
+              key={card.id}
+              handleChoice={handleChoice}
+              flipped={card === props.firstChoice || card === props.secondChoice || card.matched}
+              disabled={disabled}
+              matched={card.matched}
+              cardsAmount={cardsAmount}
+              setRunning={props.setRunning}
+              gameOver={props.gameOver}
+              twoPlayersMode={props.twoPlayersMode}
+              player1Turn={props.player1Turn}
+            />
+          </div>
         })}
       </div>
       <div className="turns">
@@ -93,6 +126,6 @@ export default function Board(props) {
           <span>{("0" + Math.floor((props.time / 1000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((props.time / 10) % 100)).slice(-2)}</span></span>
       </div>
-    </div>
+    </>
   );
 }

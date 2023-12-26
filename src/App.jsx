@@ -5,6 +5,8 @@ import originalCards from './originalCards.json'
 import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import victorySound from '../sounds/Victory Music Sound Effect.mp3'
+import SingleCard from './singleCard/SingleCard';
+
 
 
 function App() {
@@ -17,6 +19,17 @@ function App() {
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [player1, setPlayer1] = useState("");
+  const [player2, setPlayer2] = useState("");
+  const [twoPlayersMode, setTwoPlayersMode] = useState(false);
+  // משתנה שאומר תור מי
+  const [player1Turn, setPlayer1Turn] = useState(true);
+  // משתנה לכל משתמש שסוכם לו את הנקודות שהשיג
+  const [totalP1, setTotalP1] = useState(0);
+  const [totalP2, setTotalP2] = useState(0);
+  // מערך גלובלי לכל משתמש שמכיל את הזוגות שמצא, לצורך הצגת הקלפים בקטן בעמודה שלו
+  const [cardsP1, setcardsP1] = useState([]);
+  const [cardsP2, setcardsP2] = useState([]);
 
   // הגדרת הקונפטי
   const triggerConfettiR = () => {
@@ -89,7 +102,6 @@ function App() {
   }, [gameOver])
 
   return (
-
     <div className='memoryGame'>
       <div className="menu">
         <Menu shuffledCard={shuffledCard}
@@ -99,10 +111,21 @@ function App() {
           setRunning={setRunning}
           setGameOver={setGameOver}
           setTurns={setTurns}
+          player1={player1}
+          setPlayer1={setPlayer1}
+          player2={player2}
+          setPlayer2={setPlayer2}
+          twoPlayersMode={twoPlayersMode}
+          setTwoPlayersMode={setTwoPlayersMode}
+          setPlayer1Turn={setPlayer1Turn}
+          setTotalP1={setTotalP1}
+          setTotalP2={setTotalP2}
+          setcardsP1={setcardsP1}
+          setcardsP2={setcardsP2}
         />
       </div>
       <div className="board">
-        <Board
+        <div className={twoPlayersMode ? 'allCards' : 'allCardsFull'}><Board
           cards={cards}
           setCards={setCards}
           turns={turns}
@@ -117,16 +140,75 @@ function App() {
           setRunning={setRunning}
           gameOver={gameOver}
           setGameOver={setGameOver}
-        />
+          twoPlayersMode={twoPlayersMode}
+          player1Turn={player1Turn}
+          setPlayer1Turn={setPlayer1Turn}
+          totalP1={totalP1}
+          setTotalP1={setTotalP1}
+          totalP2={totalP2}
+          setTotalP2={setTotalP2}
+          cardsP1={cardsP1}
+          setcardsP1={setcardsP1}
+          cardsP2={cardsP2}
+          setcardsP2={setcardsP2}
+        /></div>
+
+        {/* חלונית צד - מצב שני שחקנים */}
+        {twoPlayersMode ? <div className="twoPlayersMode">
+          <div className="player" id={player1Turn ? "turn" : ""}>
+            <div className="playerName">{player1}</div>
+            <div className="scoreHolder">
+              <div className="score">{totalP1}</div>
+              <span>נקודות</span>
+            </div>
+            <div className="foundCards">
+              {cardsP1.map((card) => {
+                return (
+                  <div className="foundCard" key={card.id}>
+                    <img
+                      src={card.image}
+                      alt="card front" />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          <span className='TPModeLine'></span>
+          <div className="player" id={player1Turn ? "" : "turn"}>
+            <div className="playerName">{player2}</div>
+            <div className="scoreHolder">
+              <div className="score">{totalP2}</div>
+              <span>נקודות</span>
+            </div>
+            <div className="foundCards">
+              {cardsP2.map((card) => {
+                return (
+                  <div className="foundCard" key={card.id}>
+                    <img
+                      src={card.image}
+                      alt="card front" />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div> : ""}
       </div>
+
+      {/* פופ אפ ניצחון */}
       {gameOver ? <div className="victory">
-        <span>ניצחת!</span>
+        <span>{twoPlayersMode ? `ניצחון ל${totalP1 > totalP2 ? player1 : player2}!` : "ניצחת!"}</span>
         <button className='newGameEnd' onClick={() => {
           shuffledCard(newDeck),
             setTime(0),
             setRunning(false),
             setGameOver(false),
-            stopConfetti()
+            stopConfetti(),
+            setPlayer1Turn(true),
+            setTotalP1(0),
+            setTotalP2(0),
+            setcardsP1([]),
+            setcardsP2([])
         }}>משחק חדש</button>
         <button className='newGameEnd2'>משחק חדש</button>
       </div> : ""}
