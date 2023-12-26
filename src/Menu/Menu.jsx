@@ -6,6 +6,8 @@ import { faUserGroup } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faX } from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons'
+import { faVolumeXmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function Menu(props) {
 
@@ -20,6 +22,11 @@ export default function Menu(props) {
     <div className='innerMenu'>
       <h1 className="title">משחק זיכרון קטלני</h1>
       <div className="options">
+        <button className='mute' onClick={() => props.bgMusicIsPlaying ? props.fadeOutBackgroundMusic(0) : props.fadeInBackgroundMusic()}>
+          {props.bgMusicIsPlaying ?
+            <FontAwesomeIcon icon={faVolumeHigh} /> :
+            <FontAwesomeIcon icon={faVolumeXmark} />}
+        </button>
         <button className="level">
           <span>רמת קושי</span>
           <span className='expand'><FontAwesomeIcon icon={faChevronDown} /></span>
@@ -29,7 +36,12 @@ export default function Menu(props) {
                 props.shuffledCard(props.newDeck),
                 props.setTime(0),
                 props.setRunning(false),
-                props.setGameOver(false)
+                props.setGameOver(false),
+                props.setPlayer1Turn(true),
+                props.setTotalP1(0),
+                props.setTotalP2(0),
+                props.setcardsP1([]),
+                props.setcardsP2([])
             }}>10 קלפים</button></li>
             <div className="line"></div>
             <li><button onClick={() => {
@@ -37,7 +49,12 @@ export default function Menu(props) {
                 props.shuffledCard(props.newDeck),
                 props.setTime(0),
                 props.setRunning(false),
-                props.setGameOver(false)
+                props.setGameOver(false),
+                props.setPlayer1Turn(true),
+                props.setTotalP1(0),
+                props.setTotalP2(0),
+                props.setcardsP1([]),
+                props.setcardsP2([])
             }}>20 קלפים</button></li>
             <div className="line"></div>
             <li><button onClick={() => {
@@ -45,7 +62,12 @@ export default function Menu(props) {
                 props.shuffledCard(props.newDeck),
                 props.setTime(0),
                 props.setRunning(false),
-                props.setGameOver(false)
+                props.setGameOver(false),
+                props.setPlayer1Turn(true),
+                props.setTotalP1(0),
+                props.setTotalP2(0),
+                props.setcardsP1([]),
+                props.setcardsP2([])
             }}>30 קלפים</button></li>
           </ul>
         </button>
@@ -118,7 +140,7 @@ export default function Menu(props) {
                 <button
                   type="submit"
                   className='goButton'
-                  onClick={() => {props.player1 && props.player2 ? props.setTwoPlayersMode(true) : {}}} >
+                  onClick={() => { props.player1 && props.player2 ? props.setTwoPlayersMode(true) : {} }} >
                   התחל &nbsp;<FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: 20 }} />
                 </button>
               </div>

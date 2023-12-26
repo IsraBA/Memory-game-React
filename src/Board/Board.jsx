@@ -1,10 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import SingleCard from '../singleCard/SingleCard';
 import './Board.css';
+import correctSound from '../../public/sounds/Correct Answer sound effect.mp3'
+import CardFlipSound from '../../public/sounds/Card Flip sound effect.mp3'
+
 
 export default function Board(props) {
 
   const [disabled, setDisabled] = useState(false);
+
+  // הגדרת סאונד זוג נמצא
+  const playCorrectSound = () => {
+    if (props.soundsON) {
+      const correctSoundAudio = new Audio(correctSound);
+      correctSoundAudio.play();
+    }
+  };
+
+  // הגדרת סאונד קלף מתהפך
+  const playCardFlipSound = () => {
+    if (props.soundsON) {
+      const cardFlipSoundAudio = new Audio(CardFlipSound);
+      cardFlipSoundAudio.play();
+    }
+  };
 
   // קביעת גודל הקלפים בהתאם לכמות
   const [cardsAmount, setCardsAmount] = useState(props.cards.length);
@@ -17,6 +36,7 @@ export default function Board(props) {
     // למנוע לחציה כפולה של המשתמש להפוך את הקלף השני ישר
     if (card.id === props.firstChoice?.id) return;
 
+    playCardFlipSound()
     props.firstChoice ? props.setSecondChoice(card) : props.setFirstChoice(card);
   }
 
@@ -25,6 +45,7 @@ export default function Board(props) {
     if (props.firstChoice && props.secondChoice) {
       setDisabled(true);
       if (props.firstChoice.cardName == props.secondChoice.cardName) {
+        playCorrectSound();
         let newCards = [...props.cards];
         let ending = newCards.map(card => {
           if (card.cardName === props.firstChoice.cardName) {
@@ -41,18 +62,18 @@ export default function Board(props) {
         if (props.twoPlayersMode) {
           if (props.player1Turn) {
             props.setTotalP1(props.totalP1 + 1);
-            let newCardsP1 = [...props.cardsP1]; 
+            let newCardsP1 = [...props.cardsP1];
             newCardsP1.push(props.firstChoice, props.secondChoice);
             props.setcardsP1(newCardsP1);
           }
           else {
             props.setTotalP2(props.totalP2 + 1);
-            let newCardsP2 = [...props.cardsP2]; 
+            let newCardsP2 = [...props.cardsP2];
             newCardsP2.push(props.firstChoice, props.secondChoice);
             props.setcardsP2(newCardsP2);
           }
         }
-        
+
         // סיום המשחק במידה וכל הקלפים תואמים
         if (ending.every(card => card.matched)) {
           props.setGameOver(true);
@@ -60,7 +81,7 @@ export default function Board(props) {
       }
       else {
         setTimeout(() => resetChoices(), 1500);
-        
+
         // מעבר תור לשחקן האחר במידה ולא נמצא זוג קלפים
         if (props.twoPlayersMode) {
           if (props.player1Turn) {

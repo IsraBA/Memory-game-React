@@ -4,10 +4,8 @@ import Menu from './Menu/Menu'
 import originalCards from './originalCards.json'
 import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
-import victorySound from '../sounds/Victory Music Sound Effect.mp3'
-import SingleCard from './singleCard/SingleCard';
-
-
+import clapsSound from '../public/sounds/Clapping Sound Effect.mp3'
+import BackgroundMusic from '../public/sounds/backgraund music 2.mp3'
 
 function App() {
 
@@ -30,6 +28,51 @@ function App() {
   // מערך גלובלי לכל משתמש שמכיל את הזוגות שמצא, לצורך הצגת הקלפים בקטן בעמודה שלו
   const [cardsP1, setcardsP1] = useState([]);
   const [cardsP2, setcardsP2] = useState([]);
+
+  // הגדרת מוזיקת רקע
+  const [bgMusicIsPlaying, setBgMusicIsPlaying] = useState(false);
+  const [bgMusic, setBgMusic] = useState(new Audio(BackgroundMusic));
+  const [soundsON, setSoundsON] = useState(false)
+
+  // bgMusic.loop = true;
+
+  // התחלת המוזיקה
+  const fadeInBackgroundMusic = () => {
+    bgMusic.play();
+    bgMusic.loop = true;
+    bgMusic.volume = 0.15;
+    setBgMusicIsPlaying(true);
+    setSoundsON(true);
+  };
+  // הפסקת המוזיקה בסוף המשחק בדעיכה
+  const fadeOutBackgroundMusic = (num = Number) => {
+    const fadeOut = bgMusic.animate({ volume: [bgMusic.volume, 0] }, num);
+
+    fadeOut.onfinish = () => {
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
+      setBgMusicIsPlaying(false);
+      setSoundsON(false);
+    };
+  };
+
+  useEffect(() => {
+    if (gameOver) {
+      triggerConfettiR();
+      triggerConfettiL();
+      if (soundsON) {
+        playVictorySound();
+      }
+      fadeOutBackgroundMusic(2000); // עצירת המוזיקה כהמשחק נגמר
+    }
+  }, [gameOver]);
+
+  // הגדרת סאונד ניצחון
+  const playVictorySound = () => {
+    const clapsSoundAudio = new Audio(clapsSound);
+    clapsSoundAudio.volume = 0.5;
+    clapsSoundAudio.play();
+  };
 
   // הגדרת הקונפטי
   const triggerConfettiR = () => {
@@ -62,13 +105,6 @@ function App() {
   const stopConfetti = () => {
     confetti.reset();
   }
-
-  useEffect(() => {
-    if (gameOver) {
-      triggerConfettiR();
-      triggerConfettiL();
-    }
-  }, [gameOver]);
 
   const changeAmount = (selectedAmount) => {
     setNewDeck((prevDeck) => {
@@ -103,6 +139,7 @@ function App() {
 
   return (
     <div className='memoryGame'>
+
       <div className="menu">
         <Menu shuffledCard={shuffledCard}
           changeAmount={changeAmount}
@@ -122,6 +159,9 @@ function App() {
           setTotalP2={setTotalP2}
           setcardsP1={setcardsP1}
           setcardsP2={setcardsP2}
+          bgMusicIsPlaying={bgMusicIsPlaying}
+          fadeInBackgroundMusic={fadeInBackgroundMusic}
+          fadeOutBackgroundMusic={fadeOutBackgroundMusic}
         />
       </div>
       <div className="board">
@@ -151,6 +191,7 @@ function App() {
           setcardsP1={setcardsP1}
           cardsP2={cardsP2}
           setcardsP2={setcardsP2}
+          soundsON={soundsON}
         /></div>
 
         {/* חלונית צד - מצב שני שחקנים */}
@@ -209,6 +250,7 @@ function App() {
             setTotalP2(0),
             setcardsP1([]),
             setcardsP2([])
+          // fadeInBackgroundMusic()
         }}>משחק חדש</button>
         <button className='newGameEnd2'>משחק חדש</button>
       </div> : ""}

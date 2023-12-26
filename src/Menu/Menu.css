@@ -26,6 +26,20 @@
     align-items: center;
 }
 
+.mute {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 21px;
+    border-left: 2px solid var(--praimery-color);
+    padding: 4px 18px;
+}
+
+.mute:hover {
+    cursor: pointer;
+    color: var(--praimery-color);
+}
+
 .level {
     font-size: 23px;
     margin-left: 27px;

@@ -1,7 +1,5 @@
 import React from 'react'
 import './singleCard.css'
-import CardFlipSound from '../../sounds/Card Flip Sound Effect.mp3'
-
 
 export default function SingleCard(props) {
 
