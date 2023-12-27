@@ -13,6 +13,7 @@ export default function Menu(props) {
 
   const [selectAmount, setSelectAmount] = useState(14);
   const [startTP, setStartTP] = useState(false);
+  const [startGame, setStartGame] = useState(false);
 
   useEffect(() => {
     props.changeAmount(selectAmount);
@@ -20,7 +21,13 @@ export default function Menu(props) {
 
   return (
     <div className='innerMenu'>
-      <h1 className="title">משחק זיכרון קטלני</h1>
+      <h1 className="title" id={startGame ? "" : "bigTitle"}>
+        משחק זיכרון קטלני
+        <span className={startGame ? "" : "bigTitleLine"}></span>
+        <button className={startGame ? "hideStart" : 'start'} onClick={() => { setStartGame(true), props.fadeInBackgroundMusic() }}>
+          התחל&nbsp;<FontAwesomeIcon icon={faArrowLeft} beat style={{ fontSize: 70 }} />
+        </button>
+      </h1>
       <div className="options">
         <button className='mute' onClick={() => props.bgMusicIsPlaying ? props.fadeOutBackgroundMusic(0) : props.fadeInBackgroundMusic()}>
           {props.bgMusicIsPlaying ?

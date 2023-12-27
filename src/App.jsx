@@ -49,13 +49,14 @@ function App() {
     const fadeOut = bgMusic.animate({ volume: [bgMusic.volume, 0] }, num);
 
     fadeOut.onfinish = () => {
-      bgMusic.pause();
-      bgMusic.currentTime = 0;
+      bgMusic.volume = 0;
+      // bgMusic.currentTime = 0;
       setBgMusicIsPlaying(false);
       setSoundsON(false);
     };
   };
 
+  // הגדרת סוף המשחק
   useEffect(() => {
     if (gameOver) {
       triggerConfettiR();
