@@ -22,6 +22,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     background-color: var(--bg-color);
     opacity: 1;
     background-image: radial-gradient(#ff990029 1.05px, var(--bg-color) 1.05px);
@@ -32,7 +33,7 @@
     border-right: none;
 }
 
-.bigTitleLine{
+.bigTitleLine {
     width: 500px;
     height: 5px;
     margin: 43px 0 20px 0;
@@ -57,6 +58,10 @@
 
 .hideStart {
     display: none;
+}
+
+.startIcon {
+    font-size: 70px;
 }
 
 .title {
@@ -130,6 +135,20 @@
 }
 
 .newGame:hover {
+    background-color: #ff990044;
+    cursor: pointer;
+}
+
+.TPMode {
+    padding: 8px 16px;
+    font-size: 23px;
+    background-color: rgba(0, 0, 0, 0.238);
+    border-radius: 70px;
+    border: 2px solid var(--praimery-color);
+    color: var(--color);
+}
+
+.TPMode:hover {
     background-color: #ff990044;
     cursor: pointer;
 }
@@ -341,27 +360,86 @@ li button:hover {
     cursor: pointer;
 }
 
-.goButton:not(:hover){
+.goButton:not(:hover) {
     transform: scale(1);
     transition: 0.2s;
 }
 
-@media (width < 760px) {
+@media (width < 990px) {
     .innerMenu {
         flex-direction: column;
-        gap: 18px;
+        gap: 22px;
+        align-items: center;
+        position: relative;
     }
 
     .options {
-        width: 100%;
+        display: flex;
         justify-content: center;
+        width: 100%;
     }
 
     .title {
-        font-size: 30px;
+        font-size: 33px;
+    }
+
+    .mute {
+        position: fixed;
+        bottom: 13px;
+        left: 0;
+        /* border-right: 2px solid var(--praimery-color); */
+        border-left: none;
     }
 
     .level {
         font-size: 23px;
     }
+
+    #bigTitle {
+        font-size: 80px;
+        padding: 0 50px;
+    }
+
+    .bigTitleLine {
+        width: 350px;
+    }
+
+    .start {
+        font-size: 55px;
+        width: 285px;
+        padding: 15px 0;
+    }
+
+    .startIcon {
+        font-size: 45px;
+    }
+
+    .newGame {
+        font-size: 20px;
+    }
+
+    .TPMode {
+        display: none;
+    }
+
+    .setTPbackgraund {
+        padding: 35px;
+    }
+
+    .setTP {
+        position: relative;
+        width: auto;
+        font-size: 15px;
+    }
+
+    .setTP h2 {
+        padding: 10px 15px 10px 0;
+        font-size: 27px;
+        font-weight: 700;
+    }
+
+    .setTP form input {
+        font-size: 14px;
+    }
+    
 }

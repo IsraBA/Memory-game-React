@@ -121,7 +121,7 @@ export default function Board(props) {
     <>
       <div className='innerBoard'>
         {props.cards.map(card => {
-          return <div
+          return <div key={card.id}
             // id={props.twoPlayersMode ? "twoPlayersModeON" : ""}
             className={cardsAmount === 10 ? "singleCard10" : cardsAmount === 20 ? "singleCard20" : cardsAmount === 30 ? "singleCard30" : "singleCard"}>
             <SingleCard

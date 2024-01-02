@@ -25,7 +25,7 @@ export default function Menu(props) {
         משחק זיכרון קטלני
         <span className={startGame ? "" : "bigTitleLine"}></span>
         <button className={startGame ? "hideStart" : 'start'} onClick={() => { setStartGame(true), props.fadeInBackgroundMusic() }}>
-          התחל&nbsp;<FontAwesomeIcon icon={faArrowLeft} beat style={{ fontSize: 70 }} />
+          התחל&nbsp;&nbsp;<FontAwesomeIcon className='startIcon' icon={faArrowLeft} beat />
         </button>
       </h1>
       <div className="options">
@@ -91,12 +91,12 @@ export default function Menu(props) {
         }}>משחק חדש</button>
 
         {/* כפתור מצב שני שחקנים */}
-        <button className='newGame'
+        <button className='TPMode'
           onClick={() => { props.twoPlayersMode ? props.setTwoPlayersMode(false) : setStartTP(true) }}>
           {props.twoPlayersMode ?
             <FontAwesomeIcon icon={faUser} style={{ fontSize: 21 }} />
             : <FontAwesomeIcon icon={faUserGroup} style={{ fontSize: 21 }} />}
-          &nbsp;&nbsp;<span>{props.twoPlayersMode ? "מצב שחקן יחיד" : "מצב שני שחקנים"}</span>
+          <span>&nbsp;&nbsp;{props.twoPlayersMode ? "מצב שחקן יחיד" : "מצב שני שחקנים"}</span>
         </button>
 
         {/* פופ אפ מצב שני שחקנים */}
